@@ -1,0 +1,740 @@
+<!DOCTYPE HTML>
+<!--
+	Story by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
+	Note: Only needed for demo purposes. Delete for production sites.
+-->
+<html>
+	<head>
+		<title>Diff-Foley</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="divided">
+
+				<!-- One -->
+					<section class="banner style1 orient-left content-align-center image-position-center fullscreen onload-image-fade-in onload-content-fade-right">
+						<div class="content">
+							<h2>Diff-Foley: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models</h2>
+							<!-- <p><a href="https://scholar.google.com/citations?user=D1KNQasAAAAJ&hl=en&authuser=1">Qiao Sun</a><sup>1</sup>*,
+								<a href="https://scholar.google.com/citations?hl=en&authuser=1&user=tHYy9bkAAAAJ">Xin Huang</a><sup>2</sup>*,
+								<a href="https://scholar.google.com/citations?user=FPvo18QAAAAJ&hl=en&authuser=1">Junru Gu</a><sup>1</sup>,
+								<a href="https://www.csail.mit.edu/person/brian-williams">Brian Williams</a><sup>2</sup>,
+								<a href="https://hangzhaomit.github.io/">Hang Zhao</a><sup>1</sup>
+							<h6><small>* denotes equal contribution</small></h6>
+							<h5><sup>1</sup> IIIS, Tsinghua University, <sup>2</sup> CSAIL, Massachusetts Institute of Technology</h5> -->
+							<!-- <p>* Denotes equal contribution</p> -->
+							<!-- <h3>CVPR 2022</h3> -->
+							<p>Diff-Foley is a V2A model with <strong>excellent spatial temporal consistency</strong>.</p>
+							<p>Note: It is recommended to use Chrome to open this website, otherwise some contents may not appear as they should be.</p>
+							<!-- <p class="major">A (modular, highly tweakable) responsive one-page template designed by <a href="https://html5up.net">HTML5 UP</a> and released for free under the <a href="https://html5up.net/license">Creative Commons</a>.</p> -->
+							<!-- <div class="inner">
+								<ul class="icons">
+									<li><a href="https://github.com/Tsinghua-MARS-Lab/M2I" class="icon brands style2 fa-github"><span class="label">Github</span></a></li>
+									<li><a href="https://arxiv.org/abs/2202.11884" class="icon style2 fa-file-pdf"><span class="label">Arxiv</span></a></li>
+								</ul>
+							</div> -->
+
+							<!-- <ul class="actions stacked">
+								<li><a href="#first" class="button big wide smooth-scroll-middle">Learn More</a></li>
+							</ul>
+						</div>
+						<div class="image">
+							<img src="images/teaser.png" alt="" />
+						</div> -->
+					</section>
+
+				<!-- Abstract -->
+				<section class="wrapper style1 align-left" id="first">
+					<div class="inner">
+						<h2>Abstract</h2>
+						<p>The Video-to-Audio (V2A) model has recently gained attention for its practical application in generating audio directly from silent videos, particularly in the field of video/film production. However, previous methods in V2A have limited generation quality with regard to temporal synchronization and audio-visual relevance. To address the limitation, we present Diff-Foley, a synchronized Video-to-Audio synthesis method with latent diffusion model (LDM) that generate high quality audio with improved synchronization and audio-visual relevance. We first learn more temporally and semantically aligned features through audio-visual contrastive pretraining. We then train a LDM with pretrained-aligned visual features on the spectrogram latent space. The pretrained audio-visual aligned features enable the LDM to capture the subtler connection between video and sound via cross attention module. We further improve synchronization and audio-visual relevance of generated sample with 'double guidance'. Diff-Foley achieves state-of-the-art V2A performance on large scale V2A dataset.
+						</p>
+					</div>
+				</section>
+
+				<!-- Method -->
+				<section class="wrapper style1 align-left">
+					<div class="inner">
+						<h2> Model   Architecture</h2>
+						<p> 
+							Vision content and sound in videos are strong correlated. In order to adequately reflect the strong alignment relationship between audio and visual, we propose to use Contrastive Audio-Visual Pretraining (CAVP) to align audio-visual features at the outset, which facilitates the subsequent generation process.
+							Second, a LDM conditioned on the aligned CAVP visual features is trained on the spectrogram latent space to generate highly synchronized audio with strong audio-visual relevance.
+							<!-- First, it learns more semantic and temporal aligned audio-visual features by CAVP, capturing the subtle connection between audio-visual modality. Second, a LDM conditioned on the aligned CAVP visual features is trained on the spectrogram latent space. DIFF-FOLEY can synthesize highly synchronized audio with strong audio-visual relevance. P(·) denotes pooling layer. -->
+							<!-- Vision content and sound in videos are strong correlated. In order to adequately reflect the strong alignment relationship between audio and visual, we propose to use Contrastive Audio-Visual Pretraining (CAVP) to align audio-visual features at the outset, which facilitates the subsequent generation process.
+						<br>
+						Also, guidance techniques is widely used in diffusion model reverse process for controllable generation. We have used both the classifier guidance, and classifier-free guidance in our model to improve our performance. -->
+						</p>
+						<!-- <span class="image main"><img src="images/arch.png" alt="" /></span> -->
+					</div>
+				</section>
+
+				<section class="wrapper style1 align-left">
+					<div class="inner">
+						<h2> Evaluation   Results</h2>
+						<p>
+							For evaluation, we compared our results with SpecVQGAN on VGGSound dataset according to the following metrics: FID, KL, IS. Also, we introduced another metric called Align ACC which can measure the synchronization of video and audio. The results are shown in the table below.
+						</p>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Model</th>
+									<th scope="col">IS</th>
+									<th scope="col">FID</th>
+									<th scope="col">KL</th>
+									<th scope="col">ACC</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Baseline</th>
+									<td>28.06</td>
+									<td><b>9.59</b></td>
+									<td>6.80</td>
+									<td>52.94</td>
+								</tr>
+								<tr>
+									<th scope="row">Diff-Foley, single guidance(ours)</th>
+									<td>52.07</td>
+									<td>11.61</td>
+									<td><b>6.33</b></td>
+									<td>92.35</td>
+								</tr>
+								
+								<tr>
+									<th scope="row">Diff-Foley, double guidance(ours)</th>
+									<td><b>60.39</b></td>
+									<td>10.73</td>
+									<td>6.42</td>
+									<td><b>94.78</b></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+
+				<!-- Relation prediction demos -->
+				<section class="wrapper style1 align-center">
+					<div class="inner">
+						<h2>Demos</h2>
+						<p>It is recommended to use earphones to hear the demos.</p>
+					</div>
+					<div class="items style1 small">
+						<section>
+							<h3>Groundtruth</h3>
+						</section>
+						<section>
+							<h3>Baseline</h3>
+						</section>
+						<section>
+							<h3>Sample1 (Ours)</h3>
+						</section>
+						<section>
+							<h3>Sample2 (Ours)</h3>
+						</section>
+						<section>
+							<h3>Sample3 (Ours)</h3>
+						</section>
+					</div>
+					
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/x50I2W-Ahek_241_playing+bass+drum_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>playing drum</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/x50I2W-Ahek_241_playing+bass+drum_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/x50I2W-Ahek_241_playing+bass+drum_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/x50I2W-Ahek_241_playing+bass+drum_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/x50I2W-Ahek_241_playing+bass+drum_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/ijc6Ma6c4O0_90_door+slamming_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>slamming glass</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/ijc6Ma6c4O0_90_door+slamming_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/ijc6Ma6c4O0_90_door+slamming_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/ijc6Ma6c4O0_90_door+slamming_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/ijc6Ma6c4O0_90_door+slamming_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/avPEH7IukYc_30_playing+tympani_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>concert</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/avPEH7IukYc_30_playing+tympani_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/avPEH7IukYc_30_playing+tympani_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/avPEH7IukYc_30_playing+tympani_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/avPEH7IukYc_30_playing+tympani_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/LfaD5iBSyL4_92_golf+driving_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>playing golf</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/LfaD5iBSyL4_92_golf+driving_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/LfaD5iBSyL4_92_golf+driving_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/LfaD5iBSyL4_92_golf+driving_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/LfaD5iBSyL4_92_golf+driving_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+					
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/vUn1NaMwqjg_223_underwater+bubbling_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>underwater bubbling</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/vUn1NaMwqjg_223_underwater+bubbling_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/vUn1NaMwqjg_223_underwater+bubbling_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/vUn1NaMwqjg_223_underwater+bubbling_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/vUn1NaMwqjg_223_underwater+bubbling_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/sNTN5PhIRoM_25_bouncing+on+trampoline_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>bouncing on trampoline</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/sNTN5PhIRoM_25_bouncing+on+trampoline_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/sNTN5PhIRoM_25_bouncing+on+trampoline_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/sNTN5PhIRoM_25_bouncing+on+trampoline_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/sNTN5PhIRoM_25_bouncing+on+trampoline_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/Qdr2xmK84Jo_30_pigeon,+dove+cooing_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>pidgeons cooing</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/Qdr2xmK84Jo_30_pigeon,+dove+cooing_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/Qdr2xmK84Jo_30_pigeon,+dove+cooing_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/Qdr2xmK84Jo_30_pigeon,+dove+cooing_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/Qdr2xmK84Jo_30_pigeon,+dove+cooing_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/dfwr8wgZU8M_40_car+passing+by_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>car start moving</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/dfwr8wgZU8M_40_car+passing+by_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/dfwr8wgZU8M_40_car+passing+by_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/dfwr8wgZU8M_40_car+passing+by_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/dfwr8wgZU8M_40_car+passing+by_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/BCzUvCRiBZs_20_machine+gun+shooting_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>gun shooting</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/BCzUvCRiBZs_20_machine+gun+shooting_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/BCzUvCRiBZs_20_machine+gun+shooting_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/BCzUvCRiBZs_20_machine+gun+shooting_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/BCzUvCRiBZs_20_machine+gun+shooting_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/jEU8MG1w6oo_80_playing+drum+kit_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>playing drum</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/jEU8MG1w6oo_80_playing+drum+kit_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/jEU8MG1w6oo_80_playing+drum+kit_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/jEU8MG1w6oo_80_playing+drum+kit_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/jEU8MG1w6oo_80_playing+drum+kit_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/WJijwC4OgX8_24_bowling+impact_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>playing bowling ball</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/WJijwC4OgX8_24_bowling+impact_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/WJijwC4OgX8_24_bowling+impact_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/WJijwC4OgX8_24_bowling+impact_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/WJijwC4OgX8_24_bowling+impact_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/-OJzsMV1G1A_61_chopping+wood_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>chopping wood</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/-OJzsMV1G1A_61_chopping+wood_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/-OJzsMV1G1A_61_chopping+wood_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/-OJzsMV1G1A_61_chopping+wood_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/-OJzsMV1G1A_61_chopping+wood_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					
+
+					<div class="items style1 small">
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/o7I9BknIZKY_416_playing+squash_test/0.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p>playing tennis</p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/o7I9BknIZKY_416_playing+squash_test/5.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/o7I9BknIZKY_416_playing+squash_test/1.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/o7I9BknIZKY_416_playing+squash_test/2.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+						<section>
+							<span class="video">
+								<video controls autoplay loop class="html-video" width=100% height=auto>
+									<source src="videos/o7I9BknIZKY_416_playing+squash_test/3.mp4" type="video/mp4">
+								</video>
+							</span>
+							<p></p>
+						</section>
+					</div>
+
+					
+					
+
+				<section class="wrapper style1 align-center">
+					<div class="inner">
+						<h2>Citing</h2>
+						<p>If you find our work intriguing, inspiring or useful to your research, please consider citing:</p>
+						<blockquote style="text-align:left; background-color:#EEEEEE">
+							@inproceedings{diff-foley,<br>
+  								title={{DIFF-FOLEY}: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models},<br>
+  								author={},<br>
+  								booktitle={},<br>
+  								year={2023}<br>
+							}
+							</blockquote>						
+					</div>					
+				</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
