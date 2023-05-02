@@ -1,11 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Story by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 
-	Note: Only needed for demo purposes. Delete for production sites.
--->
 <html>
 	<head>
 		<title>Diff-Foley</title>
@@ -16,64 +10,27 @@
 	</head>
 	<body class="is-preload">
 
-		<!-- Wrapper -->
+
 			<div id="wrapper" class="divided">
 
-				<!-- One -->
+
 					<section class="banner style1 orient-left content-align-center image-position-center fullscreen onload-image-fade-in onload-content-fade-right">
 						<div class="content">
 							<h2>Diff-Foley: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models</h2>
-							<!-- <p><a href="https://scholar.google.com/citations?user=D1KNQasAAAAJ&hl=en&authuser=1">Qiao Sun</a><sup>1</sup>*,
-								<a href="https://scholar.google.com/citations?hl=en&authuser=1&user=tHYy9bkAAAAJ">Xin Huang</a><sup>2</sup>*,
-								<a href="https://scholar.google.com/citations?user=FPvo18QAAAAJ&hl=en&authuser=1">Junru Gu</a><sup>1</sup>,
-								<a href="https://www.csail.mit.edu/person/brian-williams">Brian Williams</a><sup>2</sup>,
-								<a href="https://hangzhaomit.github.io/">Hang Zhao</a><sup>1</sup>
-							<h6><small>* denotes equal contribution</small></h6>
-							<h5><sup>1</sup> IIIS, Tsinghua University, <sup>2</sup> CSAIL, Massachusetts Institute of Technology</h5> -->
-							<!-- <p>* Denotes equal contribution</p> -->
-							<!-- <h3>CVPR 2022</h3> -->
-							<p>Diff-Foley is a V2A model with <strong>excellent spatial temporal consistency</strong>.</p>
+							<p>Diff-Foley is a V2A model with <strong>excellent synchronization and audio-visual relevance</strong>.</p>
 							<p>Note: It is recommended to use Chrome to open this website, otherwise some contents may not appear as they should be.</p>
-							<!-- <p class="major">A (modular, highly tweakable) responsive one-page template designed by <a href="https://html5up.net">HTML5 UP</a> and released for free under the <a href="https://html5up.net/license">Creative Commons</a>.</p> -->
-							<!-- <div class="inner">
-								<ul class="icons">
-									<li><a href="https://github.com/Tsinghua-MARS-Lab/M2I" class="icon brands style2 fa-github"><span class="label">Github</span></a></li>
-									<li><a href="https://arxiv.org/abs/2202.11884" class="icon style2 fa-file-pdf"><span class="label">Arxiv</span></a></li>
-								</ul>
-							</div> -->
-
-							<!-- <ul class="actions stacked">
-								<li><a href="#first" class="button big wide smooth-scroll-middle">Learn More</a></li>
-							</ul>
-						</div>
-						<div class="image">
-							<img src="images/teaser.png" alt="" />
-						</div> -->
+							
 					</section>
 
-				<!-- Abstract -->
+
 				<section class="wrapper style1 align-left" id="first">
 					<div class="inner">
 						<h2>Abstract</h2>
 						<p>
-							<!-- The Video-to-Audio (V2A) model has recently gained attention for its practical application in generating audio directly from silent videos, particularly in the field of video/film production. However, previous methods in V2A have limited generation quality with regard to temporal synchronization and audio-visual relevance. To address the limitation, we present Diff-Foley, a synchronized Video-to-Audio synthesis method with latent diffusion model (LDM) that generate high quality audio with improved synchronization and audio-visual relevance. We first learn more temporally and semantically aligned features through audio-visual contrastive pretraining. We then train a LDM with pretrained-aligned visual features on the spectrogram latent space. The pretrained audio-visual aligned features enable the LDM to capture the subtler connection between video and sound via cross attention module. We further improve synchronization and audio-visual relevance of generated sample with 'double guidance'. Diff-Foley achieves state-of-the-art V2A performance on large scale V2A dataset. -->
 							The Video-to-Audio (V2A) model has recently gained attention for its practical application in generating audio directly from silent videos, particularly in video/film production. However, previous methods in V2A have limited generation quality in terms of temporal synchronization and audio-visual relevance. We present Diff-Foley, a synchronized Video-to-Audio synthesis method with latent diffusion model (LDM) that generate high quality audio with improved synchronization and audio-visual relevance. We adopt contrastive audio-visual pretraining (CAVP) to learn more temporally and semantically aligned features, then train an LDM with CAVP aligned visual features on spectrogram latent space. The CAVP aligned features enable LDM to capture the subtler audio-visual correlation via cross-attention module. We further significantly improve sample quality with `double guidance'. Diff-Foley achieves state-of-the-art V2A performance on current large scale V2A dataset.
 						</p>
 					</div>
 				</section>
-
-				<!-- Method -->
-				<!-- <section class="wrapper style1 align-left">
-					<div class="inner">
-						<h2> Model   Architecture</h2>
-						<p> 
-							Vision content and sound in videos are strong correlated. In order to adequately reflect the strong alignment relationship between audio and visual, we propose to use Contrastive Audio-Visual Pretraining (CAVP) to align audio-visual features at the outset, which facilitates the subsequent generation process.
-							Second, a LDM conditioned on the aligned CAVP visual features is trained on the spectrogram latent space to generate highly synchronized audio with strong audio-visual relevance.
-							
-						</p>
-						<span class="image main"><img src="images/arch.png" alt="" /></span>
-					</div>
-				</section> -->
 
 				<section class="wrapper style1 align-left">
 					<div class="inner">
@@ -119,7 +76,7 @@
 					</div>
 				</section>
 
-				<!-- Relation prediction demos -->
+
 				<section class="wrapper style1 align-center">
 					<div class="inner">
 						<h2>Demos</h2>
